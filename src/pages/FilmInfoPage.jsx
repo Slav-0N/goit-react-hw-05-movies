@@ -1,8 +1,9 @@
 import { getPoster } from 'Services/getFilmPoster';
 import { getAllPitures } from 'api/Api';
+
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link, Outlet } from 'react-router-dom';
 
 const FilmInfoPage = () => {
   const { filmId } = useParams();
@@ -39,6 +40,19 @@ const FilmInfoPage = () => {
             <span key={genre.id}>{genre.name} </span>
           ))}
       </p>
+      <h4>Additional information</h4>
+      <nav>
+        <ul>
+          <li>
+            <Link to="cast">Cast</Link>
+          </li>
+          <li>
+            <Link to="review">Review</Link>
+          </li>
+        </ul>
+      </nav>
+
+      <Outlet />
     </>
   );
 };
