@@ -17,13 +17,13 @@ export const Header = styled.header`
 `;
 
 export const StyledLink = styled(NavLink)`
-  color: blue;
+  color: green;
   font-size: 24px;
   margin-right: 20px;
   padding-bottom: 20px;
 
   &.active {
-    color: red;
+    color: blue;
     font-size: 24px;
   }
 `;
