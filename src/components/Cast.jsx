@@ -31,20 +31,22 @@ const Cast = () => {
       <ul>
         {castList.map(actor => {
           return (
-            <>
-              <img
-                src={getPoster(actor.profile_path)}
-                width={100}
-                alt="poster"
-              />
-              <li key={actor.cast_id}>
-                <p>{actor.name}</p>
-                <p>
-                  <span>Character: </span>
-                  {actor.character}
-                </p>
-              </li>
-            </>
+            <li key={actor.cast_id}>
+              <ul>
+                <img
+                  src={getPoster(actor.profile_path)}
+                  width={100}
+                  alt="poster"
+                />
+                <li>
+                  <p>{actor.name}</p>
+                  <p>
+                    <span>Character: </span>
+                    {actor.character}
+                  </p>
+                </li>
+              </ul>
+            </li>
           );
         })}
       </ul>

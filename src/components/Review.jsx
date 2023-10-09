@@ -27,9 +27,9 @@ const Review = () => {
         console.log(error.message);
       })
       .finally(() => {
-        console.log(Reviews);
+        console.log('');
       });
-  }, []);
+  }, [filmId]);
 
   return (
     <>
