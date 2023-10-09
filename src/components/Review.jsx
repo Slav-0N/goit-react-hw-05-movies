@@ -1,10 +1,3 @@
-// const Review = () => {
-//   return <div>Review component</div>;
-// };
-
-// export default Review;
-
-// import { getPoster } from 'Services/getFilmPoster';
 import { getAllPitures } from 'api/Api';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -12,11 +5,18 @@ import { useParams } from 'react-router-dom';
 
 const Review = () => {
   const { filmId } = useParams();
+  const { filmWasFind } = useParams();
 
   const [Reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    const fetchData = `movie/${filmId}/reviews`;
+    // const fetchData = `movie/${filmId}/reviews`;
+    let fetchData;
+    if (filmId !== undefined) {
+      fetchData = `movie/${filmId}/reviews`;
+    } else {
+      fetchData = `movie/${filmWasFind}/reviews`;
+    }
 
     getAllPitures(fetchData)
       .then(data => {

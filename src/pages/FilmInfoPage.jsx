@@ -7,12 +7,23 @@ import { useParams, Link, Outlet } from 'react-router-dom';
 
 const FilmInfoPage = () => {
   const { filmId } = useParams();
+  const { filmWasFind } = useParams();
+  console.log(filmId, Number(filmWasFind));
 
   const [filmInfo, setFilmInfo] = useState({});
 
-  useEffect(() => {
-    const fetchData = `movie/${filmId}`;
+  let fetchData;
+  if (filmId !== undefined) {
+    fetchData = `movie/${filmId}`;
+  } else {
+    fetchData = `movie/${filmWasFind}`;
+  }
 
+  // filmId !== undefined
+  //   ? (fetchData = `movie/${filmId}`)
+  //   : (fetchData = `movie/${Number(filmWasFind)}`);
+
+  useEffect(() => {
     getAllPitures(fetchData)
       .then(data => {
         console.log('resived data:', data);
@@ -24,7 +35,7 @@ const FilmInfoPage = () => {
       .finally(() => {
         console.log(' Докладну інфу, про стрічку, завантажено.');
       });
-  }, [filmId]);
+  }, []);
 
   return (
     <>

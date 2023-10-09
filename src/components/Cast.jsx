@@ -6,11 +6,19 @@ import { useParams } from 'react-router-dom';
 
 const Cast = () => {
   const { filmId } = useParams();
+  const { filmWasFind } = useParams();
   console.log(filmId);
+
   const [castList, setCastList] = useState([]);
 
   useEffect(() => {
-    const fetchData = `movie/${filmId}/credits`;
+    // const fetchData = `movie/${filmId}/credits`;
+    let fetchData;
+    if (filmId !== undefined) {
+      fetchData = `movie/${filmId}/credits`;
+    } else {
+      fetchData = `movie/${filmWasFind}/credits`;
+    }
 
     getAllPitures(fetchData)
       .then(data => {
