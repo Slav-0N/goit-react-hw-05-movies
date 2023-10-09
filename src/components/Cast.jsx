@@ -53,21 +53,3 @@ const Cast = () => {
 };
 
 export default Cast;
-
-//   const [filmInfo, setFilmInfo] = useState({});
-
-//   useEffect(() => {
-//     const fetchData = `movie/${filmId}`;
-
-//     getAllPitures(fetchData)
-//       .then(data => {
-//         console.log('resived data:', data);
-//         setFilmInfo({ ...data });
-//       })
-//       .catch(error => {
-//         console.log(error.message);
-//       })
-//       .finally(() => {
-//         console.log(' Докладну інфу, про стрічку, завантажено.');
-//       });
-//   }, [filmId]);
