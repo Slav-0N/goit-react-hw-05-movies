@@ -31,7 +31,7 @@ const Cast = () => {
       .finally(() => {
         console.log(' Склад акторів, завантажено.');
       });
-  }, [filmId]);
+  }, [filmId, filmWasFind]);
 
   return (
     <>

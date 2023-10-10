@@ -29,7 +29,7 @@ const Review = () => {
       .finally(() => {
         console.log('');
       });
-  }, [filmId]);
+  }, [filmId, filmWasFind]);
 
   return (
     <>

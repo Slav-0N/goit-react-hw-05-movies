@@ -1,16 +1,21 @@
 import { getPoster } from 'Services/getFilmPoster';
 import { getAllPitures } from 'api/Api';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useEffect } from 'react';
-import { useParams, Link, Outlet } from 'react-router-dom';
+import { useParams, Link, Outlet, useLocation } from 'react-router-dom';
+import { Suspense } from 'react';
 
 const FilmInfoPage = () => {
   const { filmId } = useParams();
   const { filmWasFind } = useParams();
-  console.log(filmId, Number(filmWasFind));
+  // console.log(filmId, Number(filmWasFind));
 
   const [filmInfo, setFilmInfo] = useState({});
+  const location = useLocation();
+  console.log(location);
+  const backLinkLocationRef = useRef(location?.state?.from ?? '/Movies');
+  console.log(backLinkLocationRef);
 
   let fetchData;
   if (filmId !== undefined) {
@@ -18,10 +23,6 @@ const FilmInfoPage = () => {
   } else {
     fetchData = `movie/${filmWasFind}`;
   }
-
-  // filmId !== undefined
-  //   ? (fetchData = `movie/${filmId}`)
-  //   : (fetchData = `movie/${Number(filmWasFind)}`);
 
   useEffect(() => {
     getAllPitures(fetchData)
@@ -35,10 +36,17 @@ const FilmInfoPage = () => {
       .finally(() => {
         console.log(' Докладну інфу, про стрічку, завантажено.');
       });
-  }, []);
+  }, [fetchData]);
 
   return (
     <>
+      <div>
+        {/* <Link to={location.state?.from ?? '/Movies'}>
+          Back to previous page
+        </Link> */}
+        <Link to={backLinkLocationRef.current}>Back to previous page</Link>
+      </div>
+
       <img src={getPoster(filmInfo.poster_path)} width={250} alt="poster" />
       <h1>{filmInfo.title}</h1>
       <p>User score: __ %</p>
@@ -62,8 +70,9 @@ const FilmInfoPage = () => {
           </li>
         </ul>
       </nav>
-
-      <Outlet />
+      <Suspense fallback={<div>Loading...........................</div>}>
+        <Outlet />
+      </Suspense>
     </>
   );
 };
