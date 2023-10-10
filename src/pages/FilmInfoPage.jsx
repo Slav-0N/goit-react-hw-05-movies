@@ -5,6 +5,7 @@ import { useRef, useState } from 'react';
 import { useEffect } from 'react';
 import { useParams, Link, Outlet, useLocation } from 'react-router-dom';
 import { Suspense } from 'react';
+import { BackToBtn, BtnTxt } from './FilmInfoPage.styled';
 
 const FilmInfoPage = () => {
   const { filmId } = useParams();
@@ -13,9 +14,8 @@ const FilmInfoPage = () => {
 
   const [filmInfo, setFilmInfo] = useState({});
   const location = useLocation();
-  console.log(location);
+
   const backLinkLocationRef = useRef(location?.state?.from ?? '/Movies');
-  console.log(backLinkLocationRef);
 
   let fetchData;
   if (filmId !== undefined) {
@@ -27,25 +27,19 @@ const FilmInfoPage = () => {
   useEffect(() => {
     getAllPitures(fetchData)
       .then(data => {
-        console.log('resived data:', data);
         setFilmInfo({ ...data });
       })
       .catch(error => {
         console.log(error.message);
       })
-      .finally(() => {
-        console.log(' Докладну інфу, про стрічку, завантажено.');
-      });
+      .finally(() => {});
   }, [fetchData]);
 
   return (
     <>
-      <div>
-        {/* <Link to={location.state?.from ?? '/Movies'}>
-          Back to previous page
-        </Link> */}
-        <Link to={backLinkLocationRef.current}>Back to previous page</Link>
-      </div>
+      <BackToBtn>
+        <BtnTxt to={backLinkLocationRef.current}>Back to previous page</BtnTxt>
+      </BackToBtn>
 
       <img src={getPoster(filmInfo.poster_path)} width={250} alt="poster" />
       <h1>{filmInfo.title}</h1>

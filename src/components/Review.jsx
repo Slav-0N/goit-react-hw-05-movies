@@ -20,15 +20,12 @@ const Review = () => {
 
     getAllPitures(fetchData)
       .then(data => {
-        console.log('data.results-->', data.results);
         setReviews([...data.results]);
       })
       .catch(error => {
         console.log(error.message);
       })
-      .finally(() => {
-        console.log('');
-      });
+      .finally(() => {});
   }, [filmId, filmWasFind]);
 
   return (
@@ -36,7 +33,6 @@ const Review = () => {
       <ul>
         {Reviews[0] ? (
           Reviews.map(message => {
-            console.log(Reviews);
             return (
               <li key={message.id}>
                 <p>{message.author}</p>

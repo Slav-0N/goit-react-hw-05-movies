@@ -7,7 +7,6 @@ import { useParams } from 'react-router-dom';
 const Cast = () => {
   const { filmId } = useParams();
   const { filmWasFind } = useParams();
-  console.log(filmId);
 
   const [castList, setCastList] = useState([]);
 
@@ -22,15 +21,12 @@ const Cast = () => {
 
     getAllPitures(fetchData)
       .then(data => {
-        console.log('resived data:', data.cast);
         setCastList([...data.cast]);
       })
       .catch(error => {
         console.log(error.message);
       })
-      .finally(() => {
-        console.log(' Склад акторів, завантажено.');
-      });
+      .finally(() => {});
   }, [filmId, filmWasFind]);
 
   return (
