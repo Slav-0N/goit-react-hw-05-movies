@@ -1,4 +1,4 @@
-import { getAllPitures } from 'api/Api';
+import { getData } from 'api/Api';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
@@ -9,7 +9,7 @@ const Review = () => {
 
   const fetchData = `movie/${movieId}/reviews`;
   useEffect(() => {
-    getAllPitures(fetchData)
+    getData(fetchData)
       .then(data => {
         setReviews([...data.results]);
       })

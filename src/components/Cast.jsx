@@ -1,5 +1,5 @@
 import { getPoster } from 'Services/getFilmPoster';
-import { getAllPitures } from 'api/Api';
+import { getData } from 'api/Api';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
@@ -9,7 +9,7 @@ const Cast = () => {
   const [castList, setCastList] = useState([]);
   const fetchData = `movie/${movieId}/credits`;
   useEffect(() => {
-    getAllPitures(fetchData)
+    getData(fetchData)
       .then(data => {
         setCastList([...data.cast]);
       })

@@ -1,4 +1,4 @@
-import { getAllPitures } from 'api/Api';
+import { getData } from 'api/Api';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
@@ -8,7 +8,7 @@ const Home = () => {
   useEffect(() => {
     const fetchData = `trending/movie/day`;
 
-    getAllPitures(fetchData)
+    getData(fetchData)
       .then(data => {
         setTrendFilms(data.results);
       })

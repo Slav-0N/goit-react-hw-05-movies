@@ -1,4 +1,4 @@
-import { getAllPitures } from 'api/Api';
+import { getData } from 'api/Api';
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 
@@ -22,7 +22,7 @@ const Movies = () => {
     if (!query) return;
     const fetchData = `search/movie`;
     const fetchDataQuery = `&query=${query}`;
-    getAllPitures(fetchData, fetchDataQuery)
+    getData(fetchData, fetchDataQuery)
       .then(data => {
         setSearchedFilms(data.results);
       })
