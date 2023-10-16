@@ -4,20 +4,11 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 const Review = () => {
-  const { filmId } = useParams();
-  const { filmWasFind } = useParams();
-
   const [Reviews, setReviews] = useState([]);
+  const { movieId } = useParams();
 
+  const fetchData = `movie/${movieId}/reviews`;
   useEffect(() => {
-    // const fetchData = `movie/${filmId}/reviews`;
-    let fetchData;
-    if (filmId !== undefined) {
-      fetchData = `movie/${filmId}/reviews`;
-    } else {
-      fetchData = `movie/${filmWasFind}/reviews`;
-    }
-
     getAllPitures(fetchData)
       .then(data => {
         setReviews([...data.results]);
@@ -26,7 +17,7 @@ const Review = () => {
         console.log(error.message);
       })
       .finally(() => {});
-  }, [filmId, filmWasFind]);
+  }, [fetchData]);
 
   return (
     <>

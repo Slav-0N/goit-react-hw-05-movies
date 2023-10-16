@@ -10,7 +10,7 @@ const Home = () => {
 
     getAllPitures(fetchData)
       .then(data => {
-        setTrendFilms([...data.results]);
+        setTrendFilms(data.results);
       })
       .catch(error => {
         console.log(error.message);
@@ -25,7 +25,7 @@ const Home = () => {
         {trendFilms.map(film => {
           return (
             <li key={film.id}>
-              <Link to={`${film.id}`} state={{ from: location }}>
+              <Link to={`/movies/${film.id}`} state={{ from: location }}>
                 {' '}
                 {film.title}{' '}
               </Link>

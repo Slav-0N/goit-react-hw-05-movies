@@ -1,5 +1,5 @@
 import { getPoster } from 'Services/getFilmPoster';
-import { getAllPitures } from 'api/Api';
+import { getMovieDetails } from 'api/Api';
 
 import { useRef, useState } from 'react';
 import { useEffect } from 'react';
@@ -8,24 +8,13 @@ import { Suspense } from 'react';
 import { BackToBtn, BtnTxt } from './FilmInfoPage.styled';
 
 const FilmInfoPage = () => {
-  const { filmId } = useParams();
-  const { filmWasFind } = useParams();
-  // console.log(filmId, Number(filmWasFind));
-
+  const { movieId } = useParams();
   const [filmInfo, setFilmInfo] = useState({});
   const location = useLocation();
-
   const backLinkLocationRef = useRef(location?.state?.from ?? '/Movies');
 
-  let fetchData;
-  if (filmId !== undefined) {
-    fetchData = `movie/${filmId}`;
-  } else {
-    fetchData = `movie/${filmWasFind}`;
-  }
-
   useEffect(() => {
-    getAllPitures(fetchData)
+    getMovieDetails(movieId)
       .then(data => {
         setFilmInfo({ ...data });
       })
@@ -33,7 +22,7 @@ const FilmInfoPage = () => {
         console.log(error.message);
       })
       .finally(() => {});
-  }, [fetchData]);
+  }, [movieId]);
 
   return (
     <>
@@ -57,10 +46,14 @@ const FilmInfoPage = () => {
       <nav>
         <ul>
           <li>
-            <Link to="cast">Cast</Link>
+            <Link to="cast" state={{ from: location?.state?.from }}>
+              Cast
+            </Link>
           </li>
           <li>
-            <Link to="review">Review</Link>
+            <Link to="review" state={{ from: location?.state?.from }}>
+              Review
+            </Link>
           </li>
         </ul>
       </nav>

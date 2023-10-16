@@ -8,47 +8,36 @@ const Movies = () => {
 
   const query = searchParams.get('query') ?? '';
 
-  const [searchedFilms, setSearchedFilms] = useState({});
+  const [searchedFilms, setSearchedFilms] = useState([]);
 
-  const fetchData = `search/movie`;
-  const fetchDataQuery = `&query=${query}`;
+  // const fetchData = `search/movie`;
+  // const fetchDataQuery = `&query=${query}`;
 
   const [inputValue, setInputValue] = useState('');
   const handleChange = event => {
     const { value } = event.target;
     setInputValue(value);
-    console.log(value);
   };
-
-  // const updateQueryString = e => {
-  //   if (e.target.value === '') {
-  //     return setsearchParams({});
-  //   } else {
-  //     setsearchParams({ query: e.target.value });
-  //   }
-  // };
-
   useEffect(() => {
+    if (!query) return;
+    const fetchData = `search/movie`;
+    const fetchDataQuery = `&query=${query}`;
     getAllPitures(fetchData, fetchDataQuery)
       .then(data => {
-        console.log(data);
-        setSearchedFilms({ ...data });
+        setSearchedFilms(data.results);
       })
       .catch(error => {
         console.log(error.message);
       })
       .finally(() => {});
-  }, [fetchData, fetchDataQuery]);
+  }, [query]);
 
   return (
     <div>
-      {/* <input type="text" value={query} onChange={updateQueryString} />
-      <button type="button">boom</button> */}
-
       <form
         onSubmit={e => {
           e.preventDefault();
-          console.log(inputValue);
+
           setsearchParams({ query: inputValue });
         }}
       >
@@ -64,11 +53,11 @@ const Movies = () => {
       </form>
 
       <ul>
-        {searchedFilms.results !== undefined &&
-          searchedFilms.results.map(film => {
+        {!!searchedFilms.length &&
+          searchedFilms.map(film => {
             return (
               <li key={film.id}>
-                <Link to={`${film.id}`} state={{ from: location }}>
+                <Link to={`/movies/${film.id}`} state={{ from: location }}>
                   {' '}
                   {film.title}{' '}
                 </Link>

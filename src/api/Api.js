@@ -8,6 +8,13 @@ export const getAllPitures = async (searchParm, query = '') => {
   return data;
 };
 
+export const getMovieDetails = async movieId => {
+  const { data } = await axios(
+    `/movie/${movieId}?language=en-EN&api_key=3ca44921ce7d7d1a85260e2073ddef9c`
+  );
+  return data;
+};
+
 // const fetchLanguage = `language=ru-UA`;
 // const apiKey = `api_key=3ca44921ce7d7d1a85260e2073ddef9c`;
 // const fetchData = `trending/movie/day?${fetchLanguage}&${apiKey}`;
